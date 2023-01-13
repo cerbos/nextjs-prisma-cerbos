@@ -1,0 +1,42 @@
+---
+apiVersion: api.cerbos.dev/v1
+resourcePolicy:
+  version: default
+  importDerivedRoles:
+    - common_roles
+  resource: contact
+  rules:
+    - actions: ["*"]
+      effect: EFFECT_ALLOW
+      roles:
+        - admin
+
+    - actions: ["create"]
+      effect: EFFECT_ALLOW
+      roles:
+        - user
+      condition:
+        match:
+          expr: request.principal.attr.department == "Sales"
+
+    - actions: ["read", "update", "delete"]
+      effect: EFFECT_ALLOW
+      derivedRoles:
+        - owner
+
+    - actions: ["read"]
+      effect: EFFECT_ALLOW
+      roles:
+        - user
+      condition:
+        match:
+          all:
+            of:
+              - expr: request.resource.attr.active == true
+              - any:
+                  of:
+                    - expr: request.principal.attr.department == "Sales"
+                    - all:
+                        of:
+                          - expr: request.principal.attr.department == "Marketing"
+                          - expr: request.resource.attr.marketingOptIn == true

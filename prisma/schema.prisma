@@ -6,6 +6,39 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Contact {
+  id             String   @id @default(cuid())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  firstName      String
+  lastName       String
+  owner          User     @relation(fields: [ownerId], references: [id])
+  ownerId        String
+  company        Company? @relation(fields: [companyId], references: [id])
+  companyId      String?
+  active         Boolean  @default(false)
+  marketingOptIn Boolean  @default(false)
+}
+
+model User {
+  id         String    @id @default(cuid())
+  username   String    @unique
+  email      String    @unique
+  name       String?
+  contacts   Contact[]
+  role       String
+  department String
+}
+
+model Company {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  name      String
+  website   String?
+  contacts  Contact[]
 }
