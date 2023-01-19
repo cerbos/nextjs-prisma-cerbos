@@ -1,6 +1,5 @@
 import Head from 'next/head'
 import Header from './header'
-//import styles from './layout.module.css'
 
 const Layout = ({ children }) => {
   return (

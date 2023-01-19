@@ -4,11 +4,10 @@ import { PrismaClient } from '@prisma/client';
 import { useUser } from '../lib/hooks'
 import { getLoginSession } from '../lib/auth'
 import Layout from '../components/layout'
-//import {Chela_One} from "@next/font/google";
 
 
 const Contacts = ({ contacts }) => {
-  useUser({ redirectTo: '/login' })
+  useUser({ redirectTo: "/login" })
 
   return (
     <Layout>
@@ -28,7 +27,13 @@ export async function getServerSideProps({ req }) {
   const cerbos = new GRPC("localhost:3593", { tls: false });
   const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
+  let contacts: any[] = [];
+
   const session = await getLoginSession(req);
+  if (!session) {
+    return { props: { contacts } }
+  }
+
   const user = await prisma.user.findUnique({
     where: { username: session.username },
   });
@@ -60,8 +65,6 @@ export async function getServerSideProps({ req }) {
       "request.resource.attr.marketingOptIn": "marketingOptIn",
     },
   });
-
-  let contacts: any[];
 
   if (queryPlanResult.kind !== PlanKind.ALWAYS_DENIED) {
     // Pass the filters in as where conditions
