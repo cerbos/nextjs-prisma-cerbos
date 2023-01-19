@@ -14,11 +14,11 @@ const Contact = ({ contact, isAllowed }) => {
   )
 }
 
-export async function getServerSideProps(context) {
+export async function getServerSideProps({ req, query }) {
   const cerbos = new GRPC("localhost:3593", { tls: false });
   const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
-  const session = await getLoginSession(context.req);
+  const session = await getLoginSession(req);
   const user = await prisma.user.findUnique({
     where: { username: session.username },
   });
@@ -26,7 +26,7 @@ export async function getServerSideProps(context) {
     throw Error("Not found");
   }
 
-  const { cid } = context.query
+  const { cid } = query
 
   const contact = await prisma.contact.findUnique({
     where: {

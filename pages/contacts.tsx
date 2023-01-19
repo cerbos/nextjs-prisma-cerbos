@@ -8,8 +8,6 @@ import Layout from '../components/layout'
 
 
 const Contacts = ({ contacts }) => {
-//export default function Contacts({ contacts }) {
-  //const user = useUser({ redirectTo: '/login' })
   useUser({ redirectTo: '/login' })
 
   return (
