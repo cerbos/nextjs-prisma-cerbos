@@ -1,13 +1,19 @@
 import { queryPlanToPrisma, PlanKind } from "@cerbos/orm-prisma";
 import { GRPC } from "@cerbos/grpc";
 import { PrismaClient } from '@prisma/client';
+import { useUser } from '../lib/hooks'
+import { getLoginSession } from '../lib/auth'
+import Layout from '../components/layout'
 //import {Chela_One} from "@next/font/google";
 
 
 const Contacts = ({ contacts }) => {
 //export default function Contacts({ contacts }) {
+  //const user = useUser({ redirectTo: '/login' })
+  useUser({ redirectTo: '/login' })
+
   return (
-    <div>
+    <Layout>
       <h1>List of contacts</h1>
       <ul>
         {contacts.map((contact: any) => (
@@ -16,26 +22,28 @@ const Contacts = ({ contacts }) => {
           </li>
         ))}
       </ul>
-    </div>
+    </Layout>
   );
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ req }) {
   const cerbos = new GRPC("localhost:3593", { tls: false });
   const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
+  const session = await getLoginSession(req);
+  const user = await prisma.user.findUnique({
+    where: { username: session.username },
+  });
+  if (!user) {
+    throw Error("Not found");
+  }
+
   const contactQueryPlan = await cerbos.planResources({
     principal: {
-      // TODO retrieve user data from session?
-      //id: req.user.id,
-      //roles: [req.user.role],
-      //attributes: {
-        //department: req.user.department,
-      //},
-      id: "1",
-      roles: ["admin"],
+      id: user.id,
+      roles: [user.role],
       attributes: {
-        department: "IT",
+        department: user.department,
       },
     },
     resource: {
@@ -43,7 +51,6 @@ export async function getServerSideProps() {
     },
     action: "read",
   });
-
 
   const queryPlanResult = queryPlanToPrisma({
     queryPlan: contactQueryPlan,
@@ -74,8 +81,6 @@ export async function getServerSideProps() {
       },
     });
   }
-
-  console.log(contacts);
 
   // Pass data to the page via props
   return { props: { contacts } }
