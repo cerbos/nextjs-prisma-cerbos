@@ -16,10 +16,6 @@ const Form = ({
       <span>Password</span>
       <input type="password" name="password" required />
     </label>
-    <label>
-      <span>Repeat password</span>
-      <input type="password" name="rpassword" required />
-    </label>
 
     <div className="submit">
       <button type="submit">Login</button>
