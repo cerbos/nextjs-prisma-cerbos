@@ -43,13 +43,14 @@ const LoginTable = () => {
           border-collapse: collapse;
           margin: 1rem 0;
         }
-        th, td {
+        th,
+        td {
           border: 1px solid #ccc;
           padding: 8px;
         }
       `}</style>
     </>
-  )
-}
+  );
+};
 
-export default LoginTable
+export default LoginTable;

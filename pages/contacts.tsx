@@ -1,28 +1,39 @@
-import Link from 'next/link'
+import Link from "next/link";
 import { queryPlanToPrisma, PlanKind } from "@cerbos/orm-prisma";
 import { GRPC } from "@cerbos/grpc";
-import { PrismaClient } from '@prisma/client';
-import { useUser } from '../lib/hooks'
-import { getLoginSession } from '../lib/auth'
-import Layout from '../components/layout'
-
+import { PrismaClient } from "@prisma/client";
+import { useUser } from "../lib/hooks";
+import { getLoginSession } from "../lib/auth";
+import Layout from "../components/layout";
 
 const Contacts = ({ contacts }) => {
-  useUser({ redirectTo: "/login" })
+  useUser({ redirectTo: "/login" });
 
   return (
     <Layout>
       <h1 className="text-2xl font-bold mb-3">Contacts</h1>
-      <p className="text-xl pb-3">The following contacts are accessible to the active user:</p>
+      <p className="text-xl pb-3">
+        The following contacts are accessible to the active user:
+      </p>
       <ul>
         {contacts.map((contact: any) => (
           <li key={contact.id} className="pb-2">
-            <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href={`/contacts/${contact.id}`}>{contact.id}: {contact.firstName} {contact.lastName}</Link>
+            <Link
+              className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600"
+              href={`/contacts/${contact.id}`}
+            >
+              {contact.id}: {contact.firstName} {contact.lastName}
+            </Link>
           </li>
         ))}
       </ul>
       <Link href="/">
-        <button className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5" type="button">Home</button>
+        <button
+          className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5"
+          type="button"
+        >
+          Home
+        </button>
       </Link>
     </Layout>
   );
@@ -36,7 +47,7 @@ export async function getServerSideProps({ req }) {
 
   const session = await getLoginSession(req);
   if (!session) {
-    return { props: { contacts } }
+    return { props: { contacts } };
   }
 
   const user = await prisma.user.findUnique({
@@ -76,7 +87,7 @@ export async function getServerSideProps({ req }) {
     // If you have prexisting where conditions, you can pass them in an AND clause
     contacts = await prisma.contact.findMany({
       where: {
-        AND: queryPlanResult.filters
+        AND: queryPlanResult.filters,
       },
       select: {
         id: true,
@@ -92,7 +103,7 @@ export async function getServerSideProps({ req }) {
   }
 
   // Pass data to the page via props
-  return { props: { contacts } }
+  return { props: { contacts } };
 }
 
-export default Contacts
+export default Contacts;

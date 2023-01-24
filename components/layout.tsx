@@ -1,5 +1,5 @@
-import Head from 'next/head'
-import Header from './header'
+import Head from "next/head";
+import Header from "./header";
 
 const Layout = ({ children }) => {
   return (
@@ -22,7 +22,7 @@ const Layout = ({ children }) => {
         }
       `}</style>
     </>
-  )
+  );
 };
 
-export default Layout
+export default Layout;
