@@ -26,6 +26,9 @@ export default function Home() {
               based on the privileges they have from the Cerbos policies.
             </li>
           </ol>
+          <Link href="/login">
+            <button className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5" type="button">Login</button>
+          </Link>
         </>
       )}
       {user && (

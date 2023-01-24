@@ -19,6 +19,7 @@ const userData = [
     contacts: {
       create: [
         {
+          id: "1",
           firstName: "Nick",
           lastName: "Smyth",
           marketingOptIn: true,
@@ -30,6 +31,7 @@ const userData = [
           },
         },
         {
+          id: "2",
           firstName: "Simon",
           lastName: "Jaff",
           marketingOptIn: true,
@@ -52,6 +54,7 @@ const userData = [
     contacts: {
       create: [
         {
+          id: "3",
           firstName: "Mary",
           lastName: "Jane",
           active: true,
@@ -63,6 +66,7 @@ const userData = [
           },
         },
         {
+          id: "4",
           firstName: "Christina",
           lastName: "Baker",
           marketingOptIn: true,
@@ -74,6 +78,7 @@ const userData = [
           },
         },
         {
+          id: "5",
           firstName: "Aleks",
           lastName: "Kozlov",
           marketingOptIn: true,

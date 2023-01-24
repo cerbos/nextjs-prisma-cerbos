@@ -9,8 +9,13 @@ const Contact = ({ contact, isAllowed }) => {
 
   return (
     <Layout>
-      <h1 className="text-xl font-bold mb-3">Contact: {contact.firstName} {contact.lastName}</h1>
-      {(isAllowed) ? <pre className="whitespace-pre-wrap break-words">{JSON.stringify(contact, null, 2)}</pre> : <p>Unauthorized!</p>}
+      {(isAllowed) ?
+        <>
+          <h1 className="text-xl font-bold mb-3">Contact: {contact.firstName} {contact.lastName}</h1>
+          <pre className="whitespace-pre-wrap break-words">{JSON.stringify(contact, null, 2)}</pre>
+        </> :
+        <p>Unauthorized!</p>
+      }
       <Link href="/contacts">
         <button className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5" type="button">Back</button>
       </Link>

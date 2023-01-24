@@ -17,7 +17,7 @@ const Contacts = ({ contacts }) => {
       <ul>
         {contacts.map((contact: any) => (
           <li key={contact.id} className="pb-2">
-            <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link>
+            <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href={`/contacts/${contact.id}`}>{contact.id}: {contact.firstName} {contact.lastName}</Link>
           </li>
         ))}
       </ul>
@@ -84,6 +84,9 @@ export async function getServerSideProps({ req }) {
         lastName: true,
         active: true,
         marketingOptIn: true,
+      },
+      orderBy: {
+        id: "asc",
       },
     });
   }
