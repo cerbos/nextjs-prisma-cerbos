@@ -1,3 +1,4 @@
+import { NextApiRequest, NextApiResponse } from "next";
 import Link from "next/link";
 import { queryPlanToPrisma, PlanKind } from "@cerbos/orm-prisma";
 import { GRPC } from "@cerbos/grpc";
@@ -6,7 +7,7 @@ import { useUser } from "../lib/hooks";
 import { getLoginSession } from "../lib/auth";
 import Layout from "../components/layout";
 
-const Contacts = ({ contacts }) => {
+const Contacts = ({ contacts }: { contacts: any }) => {
   useUser({ redirectTo: "/login" });
 
   return (
@@ -39,7 +40,7 @@ const Contacts = ({ contacts }) => {
   );
 };
 
-export async function getServerSideProps({ req }) {
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
   const cerbos = new GRPC("localhost:3593", { tls: false });
   const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 

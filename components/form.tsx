@@ -1,6 +1,12 @@
 import Link from "next/link";
 
-const Form = ({ isLogin, errorMessage, onSubmit }) => (
+const Form = ({
+  errorMessage,
+  onSubmit,
+}: {
+  errorMessage: string;
+  onSubmit: any;
+}) => (
   <form onSubmit={onSubmit}>
     <label>
       <span>Username</span>
@@ -10,12 +16,10 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
       <span>Password</span>
       <input type="password" name="password" required />
     </label>
-    {!isLogin && (
-      <label>
-        <span>Repeat password</span>
-        <input type="password" name="rpassword" required />
-      </label>
-    )}
+    <label>
+      <span>Repeat password</span>
+      <input type="password" name="rpassword" required />
+    </label>
 
     <div className="submit">
       <button type="submit">Login</button>

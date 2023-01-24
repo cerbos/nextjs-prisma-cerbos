@@ -8,9 +8,9 @@ import LoginTable from "../components/login-table";
 const Login = () => {
   useUser({ redirectTo: "/", redirectIfFound: true });
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
-  async function handleSubmit(e) {
+  async function handleSubmit(e: any) {
     e.preventDefault();
 
     if (errorMsg) setErrorMsg("");
@@ -31,7 +31,7 @@ const Login = () => {
       } else {
         throw new Error(await res.text());
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error("An unexpected error happened occurred:", error);
       setErrorMsg(error.message);
     }
@@ -40,7 +40,7 @@ const Login = () => {
   return (
     <Layout>
       <div className="login">
-        <Form isLogin errorMessage={errorMsg} onSubmit={handleSubmit} />
+        <Form errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
       <LoginTable />
       <style jsx>{`
