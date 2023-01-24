@@ -1,10 +1,17 @@
 import { getLoginSession } from '../../lib/auth'
-import { findUser } from '../../lib/user'
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
 export default async function user(req, res) {
   try {
     const session = await getLoginSession(req)
-    const user = (session && (await findUser(session))) ?? null
+    const user = await prisma.user.findUnique({
+      where: { username: session.username },
+    });
+    if (!user) {
+      throw Error("Not found");
+    }
 
     res.status(200).json({ user })
   } catch (error) {

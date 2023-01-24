@@ -9,16 +9,12 @@ const Header = () => {
       <nav>
         <ul>
           <li>
-            <Link href="/" legacyBehavior>
-              <a>Home</a>
-            </Link>
+            <Link href="/" legacyBehavior>Home</Link>
           </li>
           {user ? (
             <>
               <li>
-                <Link href="/contacts" legacyBehavior>
-                  <a>Contacts</a>
-                </Link>
+                <Link href="/contacts" legacyBehavior>Contacts</Link>
               </li>
               <li>
                 <Link href="/api/logout">Logout</Link>
@@ -26,9 +22,7 @@ const Header = () => {
             </>
           ) : (
             <li>
-              <Link href="/login" legacyBehavior>
-                <a>Login</a>
-              </Link>
+              <Link href="/login" legacyBehavior>Login</Link>
             </li>
           )}
         </ul>

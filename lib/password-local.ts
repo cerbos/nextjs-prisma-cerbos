@@ -1,5 +1,5 @@
 import Local from 'passport-local'
-import { findUser, validatePassword } from './user'
+import { findUser, validatePassword } from './idp'
 
 export const localStrategy = new Local.Strategy(function (
   username,

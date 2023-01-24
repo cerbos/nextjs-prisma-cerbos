@@ -18,21 +18,7 @@ const Form = ({ isLogin, errorMessage, onSubmit }) => (
     )}
 
     <div className="submit">
-      {isLogin ? (
-        <>
-          <Link href="/signup" legacyBehavior>
-            <a>I don&apos;t have an account</a>
-          </Link>
-          <button type="submit">Login</button>
-        </>
-      ) : (
-        <>
-          <Link href="/login" legacyBehavior>
-            <a>I already have an account</a>
-          </Link>
-          <button type="submit">Signup</button>
-        </>
-      )}
+      <button type="submit">Login</button>
     </div>
 
     {errorMessage && <p className="error">{errorMessage}</p>}

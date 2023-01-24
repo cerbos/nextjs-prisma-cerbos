@@ -1,6 +1,6 @@
+import Link from 'next/link'
 import { GRPC } from "@cerbos/grpc";
 import { PrismaClient } from '@prisma/client';
-//import { useRouter } from 'next/router';
 import Layout from '../../components/layout'
 import { getLoginSession } from '../../lib/auth'
 
@@ -9,7 +9,11 @@ const Contact = ({ contact, isAllowed }) => {
 
   return (
     <Layout>
-      {(isAllowed) ? <p>Contact: {contact.firstName} {contact.lastName}: {contact.id}</p> : <p>Unauthorized!</p>}
+      <h1 className="text-xl font-bold mb-3">Contact: {contact.firstName} {contact.lastName}</h1>
+      {(isAllowed) ? <pre className="whitespace-pre-wrap break-words">{JSON.stringify(contact, null, 2)}</pre> : <p>Unauthorized!</p>}
+      <Link href="/contacts">
+        <button className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5" type="button">Back</button>
+      </Link>
     </Layout>
   )
 }

@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { queryPlanToPrisma, PlanKind } from "@cerbos/orm-prisma";
 import { GRPC } from "@cerbos/grpc";
 import { PrismaClient } from '@prisma/client';
@@ -11,14 +12,18 @@ const Contacts = ({ contacts }) => {
 
   return (
     <Layout>
-      <h1>List of contacts</h1>
+      <h1 className="text-2xl font-bold mb-3">Contacts</h1>
+      <p className="text-xl pb-3">The following contacts are accessible to the active user:</p>
       <ul>
         {contacts.map((contact: any) => (
-          <li key={contact.id}>
-            <a href={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}: {contact.id}</a>
+          <li key={contact.id} className="pb-2">
+            <Link className="underline text-blue-600 hover:text-blue-800 visited:text-purple-600" href={`/contacts/${contact.id}`}>{contact.firstName} {contact.lastName}</Link>
           </li>
         ))}
       </ul>
+      <Link href="/">
+        <button className="bg-gray-300 border-solid border-2 border-black px-2.5 py-1 mt-3.5" type="button">Home</button>
+      </Link>
     </Layout>
   );
 };
