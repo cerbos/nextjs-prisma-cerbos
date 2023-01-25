@@ -30,7 +30,6 @@ model User {
   email      String    @unique
   name       String?
   contacts   Contact[]
-  role       String
   department String
 }
 

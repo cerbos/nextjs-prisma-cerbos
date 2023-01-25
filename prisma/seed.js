@@ -7,14 +7,12 @@ const userData = [
     name: "Alice",
     username: "alice",
     email: "alice@cerbos.demo",
-    role: "admin",
     department: "IT",
   },
   {
     name: "John",
     username: "john",
     email: "john@cerbos.demo",
-    role: "user",
     department: "Sales",
     contacts: {
       create: [
@@ -49,7 +47,6 @@ const userData = [
     name: "Sarah",
     username: "sarah",
     email: "sarah@cerbos.demo",
-    role: "user",
     department: "Sales",
     contacts: {
       create: [
@@ -96,7 +93,6 @@ const userData = [
     name: "Geri",
     username: "geri",
     email: "geri@cerbos.demo",
-    role: "user",
     department: "Marketing",
   },
 ];

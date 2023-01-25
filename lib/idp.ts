@@ -1,22 +1,26 @@
 /**
  * This `users` object represents what would be the identity provider in a production environment.
  */
-const users = [
+export const users = [
   {
     username: "alice",
     password: "supersecret",
+    role: "admin",
   },
   {
     username: "john",
     password: "password1234",
+    role: "user",
   },
   {
     username: "sarah",
     password: "asdfghjkl",
+    role: "user",
   },
   {
     username: "geri",
     password: "pwd123",
+    role: "user",
   },
 ];
 

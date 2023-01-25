@@ -61,7 +61,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
   const contactQueryPlan = await cerbos.planResources({
     principal: {
       id: user.id,
-      roles: [user.role],
+      roles: [session.role],
       attributes: {
         department: user.department,
       },

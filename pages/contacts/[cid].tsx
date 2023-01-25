@@ -80,7 +80,7 @@ export async function getServerSideProps({
   const decision = await cerbos.checkResource({
     principal: {
       id: user.id,
-      roles: [user.role],
+      roles: [session.role],
       attributes: {
         department: user.department,
       },
