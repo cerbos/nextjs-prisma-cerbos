@@ -3,7 +3,7 @@
 A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://nextjs.org/) application using [Prisma](https://prisma.io/) as the ORM. Consisting of the following:
 
 - A SQLite database with a seeding script to pre-populate with user and contacts data.
-- Authentication via a mock Identity Provider (IdP) (which for demo purposes, is simply a static structure stored in memory [here](https://github.com/cerbos/nextjs-prisma-cerbos/blob/main/lib/idp.ts)) and Passport.js for session management.
+- Authentication via a mock Identity Provider (IdP) (which for demo purposes, is simply a static structure stored in memory [here](./lib/idp.ts)) and Passport.js for session management.
 - Protected pages for listing and accessing contacts for the actively authenticated user. Using server-side rendering (via `getServerSideProps`) to retrieve protected resources by generating a query plan from [Cerbos' PlanResources API](https://docs.cerbos.dev/cerbos/latest/api/index.html#resources-query-plan) and using it to retrieve the contacts from the database, using Prisma.
 - Various utilities, hooks and APIs to demo different approaches that could be used when integrating Cerbos with Next.js.
 
@@ -42,7 +42,7 @@ npm run dev
 
 ## Policies
 
-This example has a simple CRUD policy in place for a resource kind of `contact` - like a CRM system would have. The policy file can be found in the `cerbos/policies` folder [here](https://github.com/cerbos/nextjs-prisma-cerbos/blob/main/cerbos/policies/contact.yaml).
+This example has a simple CRUD policy in place for a resource kind of `contact` - like a CRM system would have. The policy file can be found in the `cerbos/policies` folder [here](./cerbos/policies/contact.yaml).
 
 The [policy](./cerbos/policies/contact.yaml) expects one of two roles to be set on the principal - `admin` and `user` and an attribute which defines their department as either `IT`, `Sales` or `Marketing`. A derived role is generated which applies to principals who created the contact in question. The contact resource can have attributes specifying `active` and `marketingOptIn` booleans.
 
