@@ -40,6 +40,8 @@ npx prisma db seed
 npm run dev
 ```
 
+5. Load up [the app](http://localhost:3000/)
+
 ## Policies
 
 This example has a simple CRUD policy in place for a resource kind of `contact` - like a CRM system would have. The policy file can be found in the `cerbos/policies` folder [here](./cerbos/policies/contact.yaml).
