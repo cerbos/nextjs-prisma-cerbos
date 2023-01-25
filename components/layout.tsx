@@ -5,7 +5,7 @@ const Layout = ({ children }: { children: any }) => {
   return (
     <>
       <Head>
-        <title>With Cookies</title>
+        <title>Cerbos+Next.js+Prisma</title>
       </Head>
 
       <Header />

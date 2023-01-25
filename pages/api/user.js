@@ -6,6 +6,11 @@ const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 export default async function user(req, res) {
   try {
     const session = await getLoginSession(req);
+    if (!session) {
+      res.status(200).json({ user: null });
+      return
+    }
+
     const user = await prisma.user.findUnique({
       where: { username: session.username },
     });

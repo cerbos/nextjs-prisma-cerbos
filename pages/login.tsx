@@ -6,6 +6,7 @@ import Layout from "../components/layout";
 import LoginTable from "../components/login-table";
 
 const Login = () => {
+  // Redirect to home if user is already logged in
   useUser({ redirectTo: "/", redirectIfFound: true });
 
   const [errorMsg, setErrorMsg] = useState<string>("");
