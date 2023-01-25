@@ -10,7 +10,7 @@ A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://nextjs.
 ## Dependencies
 
 - Node.js
-- Docker for running the [Cerbos Policy Decision Point (PDP)](https://docs.cerbos.dev/cerbos/installation/container.html)
+- Docker for running the [Cerbos Policy Decision Point (PDP)](https://docs.cerbos.dev/cerbos/latest/installation/container.html)
 
 ## Getting Started
 
