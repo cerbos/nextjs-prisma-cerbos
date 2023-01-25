@@ -1,6 +1,6 @@
 # nextjs-prisma-cerbos
 
-A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://expressjs.com/) application using [Prisma](https://prisma.io/) as the ORM. Consisting of the following:
+A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://nextjs.org/) application using [Prisma](https://prisma.io/) as the ORM. Consisting of the following:
 
 - A SQLite database with a seeding script to pre-populate with user and contacts data.
 - Authentication via a mock Identity Provider (IdP) (which for demo purposes, is simply a static structure stored in memory [here](https://github.com/cerbos/nextjs-prisma-cerbos/blob/main/lib/idp.ts)) and Passport.js for session management.
