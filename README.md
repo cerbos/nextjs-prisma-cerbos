@@ -1,9 +1,9 @@
 # nextjs-prisma-cerbos
 
-A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://expressjs.com/) app using [Prisma](https://prisma.io/) as the ORM. This demo consists of the following:
+A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://expressjs.com/) application using [Prisma](https://prisma.io/) as the ORM. Consisting of the following:
 
 - A SQLite database with a seeding script to pre-populate with user and contacts data.
-- Authentication via a mock Identity Provider (IdP), consisting of a static structure stored in memory ([TODO: LINK ME]()) and Passport.js for session management.
+- Authentication via a mock Identity Provider (IdP) (which for demo purposes, is simply a static structure stored in memory [here](https://github.com/cerbos/nextjs-prisma-cerbos/blob/main/lib/idp.ts)) and Passport.js for session management.
 - Protected pages for listing and accessing contacts for the actively authenticated user. Using server-side rendering (via `getServerSideProps`) to retrieve protected resources by generating a query plan from [Cerbos' PlanResources API](https://docs.cerbos.dev/cerbos/latest/api/index.html#resources-query-plan) and using it to retrieve the contacts from the database, using Prisma.
 - Various utilities, hooks and APIs to demo different approaches that could be used when integrating Cerbos with Next.js.
 
@@ -14,7 +14,7 @@ A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://express
 
 ## Getting Started
 
-1. Start up the Cerbos PDP instance docker container. This will be called by the express app to check authorization.
+1. Start up the Cerbos PDP instance docker container. This will be called by the next.js app to check authorization.
 
 ```bash
 cd cerbos
@@ -44,20 +44,16 @@ npm run dev
 
 This example has a simple CRUD policy in place for a resource kind of `contact` - like a CRM system would have. The policy file can be found in the `cerbos/policies` folder [here](https://github.com/cerbos/nextjs-prisma-cerbos/blob/main/cerbos/policies/contact.yaml).
 
-Should you wish to experiment with this policy, you can <a href="https://play.cerbos.dev/p/ygW612cc9c9xXOsOZjI40ovY2LZvXf43" target="_blank">try it in the Cerbos Playground</a>.
-
-<a href="https://play.cerbos.dev/p/ygW612cc9c9xXOsOZjI40ovY2LZvXf43" target="_blank"><img src="docs/launch.jpg" height="48" /></a>
-
-The [policy](./cerbos/policies/contact.yaml) expects one of two roles to be set on the principal - `admin` and `user` and an attribute which defines their department as either `IT`, `Sales` or `Marketing`.
+The [policy](./cerbos/policies/contact.yaml) expects one of two roles to be set on the principal - `admin` and `user` and an attribute which defines their department as either `IT`, `Sales` or `Marketing`. A derived role is generated which applies to principals who created the contact in question. The contact resource can have attributes specifying `active` and `marketingOptIn` booleans.
 
 These roles are authorized as follows:
 
-| Action   | Role: User                                  | Role: Admin |
-| -------- | ------------------------------------------- | ----------- |
-| `read`   | Only if department is `Sales`               | Y           |
-| `create` | Only if department is `Sales`               | Y           |
-| `update` | Only if they own the contact being accessed | Y           |
-| `delete` | Only if they own the contact being accessed | Y           |
+| Action   | Role: Admin | Derived Role: Owner| Role: User (if not Owner)                                                                                                 |
+| -------- | ----------- | -------------------| ------------------------------------------------------------------------------------------------------------------------- |
+| `read`   | Y           | Y                  | Only if the resource is active AND (the department is `Sales` OR (`Marketing` AND the resource is opted in to marketing)) |
+| `create` | Y           | N                  | Only if department is `Sales`                                                                                             |
+| `update` | Y           | Y                  | N                                                                                                                         |
+| `delete` | Y           | Y                  | N                                                                                                                         |
 
 ## Trying it out
 
