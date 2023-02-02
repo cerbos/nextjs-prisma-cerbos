@@ -118,10 +118,12 @@ npx prisma db seed
 
 7. Go to the "Environment Variables" section of the project settings in the Vercel dashboard, and set `DATABASE_URL` to the appropriate connection string in the format: `postgresql://{user}:{password}@{ngrok_url}:{ngrok_port}/{db_name}`. E.g. if the ngrok "forwarding" output was `tcp://4.tcp.eu.ngrok.io:12348 -> localhost:5432`, then (assuming the parameters in the example SQL above) the connection string would be `postgresql://some_user:password1234@4.tcp.eu.ngrok.io:12348/cerbos`.
 
-8. Deploy the preview to Vercel (running `vercel` in the project root will trigger this)
-
 ### Cerbos PDP
 
 We also need access to an instance of the Cerbos PDP. Again, in production, you'd manage your Cerbos deployments separately, but for this demo we can rely on the [Cerbos playground](https://play.cerbos.dev/) to store and serve our policies. For convenience, we've created a playground instance with the required policies which you can use [here](https://play.cerbos.dev/p/urL7ZEEA63d943b1SULSYmYsRSpiuvX8).
 
 To point to this PDP instance, back in the Vercel project settings, set the environment variable `CERBOS_URL` to "demo-pdp.cerbos.cloud". You can optionally set `CERBOS_PLAYGROUND_INSTANCE` as well, but if you don't, it'll default to the provided instance.
+
+### Deploy to Vercel
+
+Deploy the preview to Vercel (running `vercel` in the project root will trigger this), and load it up. You should now have a Vercel hosted deployment, using an instance of Postgres on your local machine and a public instance of the Cerbos PDP running in the playground!
