@@ -1,9 +1,9 @@
 import { NextApiRequest } from "next";
 import Link from "next/link";
-import { GRPC } from "@cerbos/grpc";
 import { PrismaClient } from "@prisma/client";
 import Layout from "../../components/layout";
 import { getLoginSession } from "../../lib/auth";
+import { getCerbosClient } from "../../lib/cerbos";
 
 const Contact = ({
   contact,
@@ -52,7 +52,7 @@ export async function getServerSideProps({
   req: NextApiRequest;
   query: any;
 }) {
-  const cerbos = new GRPC("localhost:3593", { tls: false });
+  const cerbos = getCerbosClient();
   const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
 
   const session = await getLoginSession(req);
