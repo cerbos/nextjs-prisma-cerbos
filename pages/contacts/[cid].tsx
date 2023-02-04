@@ -1,26 +1,28 @@
 import { NextApiRequest } from "next";
 import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
 import Layout from "../../components/layout";
 import { getLoginSession } from "../../lib/auth";
 import { getCerbosClient } from "../../lib/cerbos";
+import { getPrismaClient } from "../../lib/prisma";
 
 const Contact = ({
   contact,
   isAllowed,
+  user,
 }: {
   contact: any;
   isAllowed: boolean;
+  user: any;
 }) => {
   if (!contact)
     return (
-      <Layout>
+      <Layout user={user}>
         <p>Contact not found!</p>
       </Layout>
     );
 
   return (
-    <Layout>
+    <Layout user={user}>
       {isAllowed ? (
         <>
           <h1 className="text-xl font-bold mb-3">
@@ -52,10 +54,19 @@ export async function getServerSideProps({
   req: NextApiRequest;
   query: any;
 }) {
-  const cerbos = getCerbosClient();
-  const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
-
   const session = await getLoginSession(req);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const cerbos = getCerbosClient();
+  const prisma = getPrismaClient();
+
   const user = await prisma.user.findUnique({
     where: { username: session.username },
   });
@@ -98,6 +109,7 @@ export async function getServerSideProps({
     props: {
       contact: JSON.parse(JSON.stringify(contact)),
       isAllowed: decision.isAllowed("read"),
+      user: user,
     },
   };
 }

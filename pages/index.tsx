@@ -1,13 +1,12 @@
-import { useUser } from "../lib/hooks";
 import Layout from "../components/layout";
 import Link from "next/link";
 import LoginTable from "../components/login-table";
+import { getLoginSession } from "../lib/auth";
+import { getPrismaClient } from "../lib/prisma";
 
-export default function Home() {
-  const user = useUser();
-
+export default function Home({ user }: { user: any }) {
   return (
-    <Layout>
+    <Layout user={user}>
       <h1 className="text-2xl font-bold">Cerbos + Next.js + Prisma demo</h1>
       {!user && (
         <>
@@ -58,4 +57,28 @@ export default function Home() {
       )}
     </Layout>
   );
+}
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+  const prisma = getPrismaClient();
+
+  const session = await getLoginSession(req);
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+
+  const user = await prisma.user.findUnique({
+    where: { username: session.username },
+  });
+  if (!user) {
+    throw Error("Not found");
+  }
+
+  // Pass data to the page via props
+  return { props: { user } };
 }

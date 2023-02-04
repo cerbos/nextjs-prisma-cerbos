@@ -1,14 +1,11 @@
 import { useState } from "react";
 import Router from "next/router";
-import { useUser } from "../lib/hooks";
 import Form from "../components/form";
 import Layout from "../components/layout";
 import LoginTable from "../components/login-table";
+import { getLoginSession } from "../lib/auth";
 
 const Login = () => {
-  // Redirect to home if user is already logged in
-  useUser({ redirectTo: "/", redirectIfFound: true });
-
   const [errorMsg, setErrorMsg] = useState<string>("");
 
   async function handleSubmit(e: any) {
@@ -39,7 +36,7 @@ const Login = () => {
   }
 
   return (
-    <Layout>
+    <Layout user={null}>
       <div className="login">
         <Form errorMessage={errorMsg} onSubmit={handleSubmit} />
       </div>
@@ -57,3 +54,19 @@ const Login = () => {
 };
 
 export default Login;
+
+export async function getServerSideProps({ req }: { req: NextApiRequest }) {
+  // Redirect to home if user is already logged in
+  const session = await getLoginSession(req);
+  if (session) {
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  }
+
+  // Pass data to the page via props
+  return { props: {} };
+}

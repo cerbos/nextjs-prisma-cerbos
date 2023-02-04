@@ -1,17 +1,14 @@
 import { NextApiRequest } from "next";
 import Link from "next/link";
 import { queryPlanToPrisma, PlanKind } from "@cerbos/orm-prisma";
-import { PrismaClient } from "@prisma/client";
-import { useUser } from "../lib/hooks";
 import { getLoginSession } from "../lib/auth";
 import { getCerbosClient } from "../lib/cerbos";
+import { getPrismaClient } from "../lib/prisma";
 import Layout from "../components/layout";
 
-const Contacts = ({ contacts }: { contacts: any }) => {
-  useUser({ redirectTo: "/login" });
-
+const Contacts = ({ contacts, user }: { contacts: any; user: any }) => {
   return (
-    <Layout>
+    <Layout user={user}>
       <h1 className="text-2xl font-bold mb-3">Contacts</h1>
       <p className="text-xl pb-3">
         The following contacts are accessible to the active user:
@@ -41,15 +38,18 @@ const Contacts = ({ contacts }: { contacts: any }) => {
 };
 
 export async function getServerSideProps({ req }: { req: NextApiRequest }) {
-  const cerbos = getCerbosClient();
-  const prisma = new PrismaClient({ log: ["query", "info", "warn", "error"] });
-
-  let contacts: any[] = [];
-
   const session = await getLoginSession(req);
   if (!session) {
-    return { props: { contacts } };
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
   }
+
+  const cerbos = getCerbosClient();
+  const prisma = getPrismaClient();
 
   const user = await prisma.user.findUnique({
     where: { username: session.username },
@@ -83,6 +83,8 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
     },
   });
 
+  let contacts: any[] = [];
+
   if (queryPlanResult.kind !== PlanKind.ALWAYS_DENIED) {
     // Pass the filters in as where conditions
     // If you have prexisting where conditions, you can pass them in an AND clause
@@ -104,7 +106,7 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
   }
 
   // Pass data to the page via props
-  return { props: { contacts } };
+  return { props: { contacts, user } };
 }
 
 export default Contacts;

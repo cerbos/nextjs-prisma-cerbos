@@ -1,9 +1,6 @@
 import Link from "next/link";
-import { useUser } from "../lib/hooks";
 
-const Header = () => {
-  const user = useUser();
-
+const Header = ({ user }: { user: any }) => {
   return (
     <header>
       <nav>

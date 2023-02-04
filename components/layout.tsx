@@ -1,14 +1,14 @@
 import Head from "next/head";
 import Header from "./header";
 
-const Layout = ({ children }: { children: any }) => {
+const Layout = ({ children, user }: { children: any; user: any }) => {
   return (
     <>
       <Head>
         <title>Cerbos+Next.js+Prisma</title>
       </Head>
 
-      <Header />
+      <Header user={user} />
 
       <main>
         <div className="container">{children}</div>
