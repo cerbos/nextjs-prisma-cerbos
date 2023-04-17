@@ -32,7 +32,7 @@
     "@types/cookie": "^0.5.1",
     "@types/node": "18.15.11",
     "@types/passport-local": "^1.0.35",
-    "@types/react": "18.0.33",
+    "@types/react": "18.0.35",
     "@types/react-dom": "18.0.11",
     "@typescript-eslint/eslint-plugin": "^5.48.2",
     "autoprefixer": "^10.4.13",
