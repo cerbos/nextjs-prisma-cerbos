@@ -16,7 +16,7 @@
     "@prisma/client": "^4.8.1",
     "cookie": "0.5.0",
     "next": "13.4.3",
-    "next-connect": "0.13.0",
+    "next-connect": "1.0.0",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
     "postcss": "^8.4.21",
