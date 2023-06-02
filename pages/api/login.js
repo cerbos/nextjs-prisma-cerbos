@@ -1,7 +1,10 @@
 import passport from "passport";
-import nextConnect from "next-connect";
+import { createRouter } from "next-connect";
 import { localStrategy } from "../../lib/password-local";
 import { setLoginSession } from "../../lib/auth";
+
+const router = createRouter();
+
 
 const authenticate = (method, req, res) =>
   new Promise((resolve, reject) => {
@@ -16,7 +19,7 @@ const authenticate = (method, req, res) =>
 
 passport.use(localStrategy);
 
-export default nextConnect()
+router
   .use(passport.initialize())
   .post(async (req, res) => {
     try {
@@ -32,3 +35,5 @@ export default nextConnect()
       res.status(401).send(error.message);
     }
   });
+
+  export default router.handler()
