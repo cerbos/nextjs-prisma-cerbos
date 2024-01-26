@@ -17,8 +17,7 @@ A demo integrating [Cerbos](https://cerbos.dev) with a [Next.js](https://nextjs.
 1. Start up the Cerbos PDP instance docker container. This will be called by the next.js app to check authorization.
 
 ```bash
-cd cerbos
-./start.sh
+./cerbos/start.sh
 ```
 
 2. Install node dependencies
