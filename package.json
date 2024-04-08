@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
-    "@types/node": "20.12.2",
+    "@types/node": "20.12.5",
     "@types/passport-local": "^1.0.35",
-    "@types/react": "18.2.73",
-    "@types/react-dom": "18.2.23",
+    "@types/react": "18.2.74",
+    "@types/react-dom": "18.2.24",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.32.0",
