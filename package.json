@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cerbos/grpc": "^0.18.0",
+    "@cerbos/grpc": "^0.19.0",
     "@cerbos/orm-prisma": "^1.0.0",
     "@hapi/iron": "7.0.1",
     "@prisma/client": "^5.0.0",
@@ -29,7 +29,7 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
-    "@types/node": "20.17.7",
+    "@types/node": "20.17.9",
     "@types/passport-local": "^1.0.35",
     "@types/react": "18.3.12",
     "@types/react-dom": "18.3.1",
