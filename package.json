@@ -14,7 +14,7 @@
     "@hapi/iron": "7.0.1",
     "@prisma/client": "^5.0.0",
     "cookie": "0.7.2",
-    "next": "14.2.25",
+    "next": "14.2.26",
     "next-connect": "1.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
