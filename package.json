@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@cerbos/grpc": "^0.19.0",
+    "@cerbos/grpc": "^0.21.0",
     "@cerbos/orm-prisma": "^1.0.0",
     "@hapi/iron": "7.0.1",
     "@prisma/client": "^5.0.0",
     "cookie": "0.7.2",
-    "next": "14.2.26",
+    "next": "14.2.28",
     "next-connect": "1.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -29,10 +29,10 @@
   },
   "devDependencies": {
     "@types/cookie": "^0.6.0",
-    "@types/node": "22.15.17",
+    "@types/node": "22.15.19",
     "@types/passport-local": "^1.0.35",
-    "@types/react": "18.3.16",
-    "@types/react-dom": "18.3.5",
+    "@types/react": "18.3.21",
+    "@types/react-dom": "18.3.7",
     "@typescript-eslint/eslint-plugin": "^6.19.1",
     "autoprefixer": "^10.4.13",
     "eslint": "^8.32.0",
