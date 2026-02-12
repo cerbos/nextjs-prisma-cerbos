@@ -13,7 +13,7 @@
     "@cerbos/orm-prisma": "^1.0.0",
     "@hapi/iron": "7.0.1",
     "@prisma/client": "^5.0.0",
-    "cookie": "0.7.2",
+    "cookie": "1.1.1",
     "next": "14.2.35",
     "next-connect": "1.0.0",
     "passport": "^0.7.0",
@@ -28,7 +28,7 @@
     "uuid": "^11.0.0"
   },
   "devDependencies": {
-    "@types/cookie": "^0.6.0",
+    "@types/cookie": "^1.0.0",
     "@types/node": "22.16.5",
     "@types/passport-local": "^1.0.35",
     "@types/react": "18.3.23",
