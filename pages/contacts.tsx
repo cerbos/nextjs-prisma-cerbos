@@ -75,23 +75,28 @@ export async function getServerSideProps({ req }: { req: NextApiRequest }) {
   const queryPlanResult = queryPlanToPrisma({
     queryPlan: contactQueryPlan,
     // map or function to change field names to match the prisma model
-    fieldNameMapper: {
-      "request.resource.attr.ownerId": "ownerId",
-      "request.resource.attr.department": "department",
-      "request.resource.attr.active": "active",
-      "request.resource.attr.marketingOptIn": "marketingOptIn",
+    mapper: {
+      "request.resource.attr.ownerId": { field: "ownerId" },
+      "request.resource.attr.department": { field: "department" },
+      "request.resource.attr.active": { field: "active" },
+      "request.resource.attr.marketingOptIn": { field: "marketingOptIn" },
     },
   });
 
   let contacts: any[] = [];
 
   if (queryPlanResult.kind !== PlanKind.ALWAYS_DENIED) {
-    // Pass the filters in as where conditions
-    // If you have prexisting where conditions, you can pass them in an AND clause
+    // Pass the filters in as where conditions.
+    // ALWAYS_ALLOWED yields no filters (fetch everything); CONDITIONAL yields
+    // a where clause. If you have pre-existing where conditions, you can
+    // combine them in an AND clause.
+    const where =
+      queryPlanResult.kind === PlanKind.CONDITIONAL
+        ? queryPlanResult.filters
+        : {};
+
     contacts = await prisma.contact.findMany({
-      where: {
-        AND: queryPlanResult.filters,
-      },
+      where,
       select: {
         id: true,
         firstName: true,

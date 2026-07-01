@@ -1,3 +1,4 @@
+import { NextApiRequest } from "next";
 import Layout from "../components/layout";
 import Link from "next/link";
 import LoginTable from "../components/login-table";

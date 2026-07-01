@@ -1,12 +1,14 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { serialize, parse } from "cookie";
+import { stringifySetCookie, parseCookie } from "cookie";
 
 const TOKEN_NAME = "token";
 
 export const MAX_AGE = 60 * 60 * 8; // 8 hours
 
 export function setTokenCookie(res: NextApiResponse, token: string) {
-  const cookie = serialize(TOKEN_NAME, token, {
+  const cookie = stringifySetCookie({
+    name: TOKEN_NAME,
+    value: token,
     maxAge: MAX_AGE,
     expires: new Date(Date.now() + MAX_AGE * 1000),
     httpOnly: true,
@@ -19,7 +21,9 @@ export function setTokenCookie(res: NextApiResponse, token: string) {
 }
 
 export function removeTokenCookie(res: NextApiResponse) {
-  const cookie = serialize(TOKEN_NAME, "", {
+  const cookie = stringifySetCookie({
+    name: TOKEN_NAME,
+    value: "",
     maxAge: -1,
     path: "/",
   });
@@ -33,7 +37,7 @@ export function parseCookies(req: NextApiRequest) {
 
   // For pages we do need to parse the cookies.
   const cookie = req.headers?.cookie;
-  return parse(cookie || "");
+  return parseCookie(cookie || "");
 }
 
 export function getTokenCookie(req: NextApiRequest) {
