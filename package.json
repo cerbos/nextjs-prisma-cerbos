@@ -15,7 +15,7 @@
     "@prisma/adapter-better-sqlite3": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "cookie": "2.0.1",
-    "next": "16.2.12",
+    "next": "16.3.0",
     "next-connect": "1.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.2",
-    "@types/node": "26.1.2",
+    "@types/node": "26.2.0",
     "@types/passport-local": "^1.0.38",
     "@types/react": "19.2.18",
     "@types/react-dom": "19.2.4",
