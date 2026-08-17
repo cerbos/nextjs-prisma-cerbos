@@ -9,13 +9,13 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@cerbos/grpc": "^0.28.0",
+    "@cerbos/grpc": "^0.29.0",
     "@cerbos/orm-prisma": "^3.3.0",
     "@hapi/iron": "7.0.1",
     "@prisma/adapter-better-sqlite3": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "cookie": "2.0.1",
-    "next": "16.3.0",
+    "next": "16.3.1",
     "next-connect": "1.0.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
