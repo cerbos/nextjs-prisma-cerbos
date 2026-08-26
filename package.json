@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@cerbos/grpc": "^0.29.0",
-    "@cerbos/orm-prisma": "^3.3.0",
+    "@cerbos/orm-prisma": "^4.0.0",
     "@hapi/iron": "7.0.1",
     "@prisma/adapter-better-sqlite3": "^7.8.0",
     "@prisma/client": "^7.8.0",
